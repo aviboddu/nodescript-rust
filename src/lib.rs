@@ -1,7 +1,6 @@
 use std::{fs::read_to_string, path::Path};
 
-mod tests;
-mod tokens;
+pub mod tokens;
 
 pub fn tokenize_file(path: &Path) -> Result<tokens::Tokens, &'static str> {
     let contents: Result<String, std::io::Error> = read_to_string(&path);

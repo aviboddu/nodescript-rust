@@ -1,10 +1,11 @@
 #[cfg(test)]
 mod tests {
-    use super::super::*;
+    use nodescript_rust::*;
+    use std::path::Path;
 
     #[test]
     fn basic_parse() {
-        let path = Path::new("./tests/Minimal.ns");
+        let path = Path::new("./data/Minimal/Minimal.ns");
         let result = tokenize_file(path).unwrap();
         assert_eq!(
             result,
