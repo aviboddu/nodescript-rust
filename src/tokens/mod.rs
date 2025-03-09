@@ -28,9 +28,9 @@ pub enum Token {
     LessEqual,
 
     // Literals.
-    Identifier(String),
-    String(String),
-    Number(String),
+    Identifier(usize, usize),
+    String(usize, usize),
+    Number(usize, usize),
 
     // Keywords.
     And,
@@ -56,7 +56,9 @@ pub fn tokenize(code: String) -> Result<Tokens, &'static str> {
     }
     let mut tokens: Vec<Vec<Token>> = vec![];
     for line in code.lines() {
-        let tokens_for_line = match tokenize_line(line) {
+        let offset: usize = unsafe { line.as_ptr().byte_offset_from(code.as_ptr()) as usize };
+        let len: usize = line.len();
+        let tokens_for_line = match tokenize_line(code.as_str(), offset, len) {
             Ok(t) => t,
             Err(r) => return Err(r),
         };
@@ -69,23 +71,25 @@ pub fn tokenize(code: String) -> Result<Tokens, &'static str> {
     return Ok(Tokens { tokens, code });
 }
 
-fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
-    if line.is_empty() {
+fn tokenize_line<'a>(code: &str, offset: usize, len: usize) -> Result<Vec<Token>, &'static str> {
+    if len == 0 {
         return Ok(vec![]);
     }
-    let bytes: &[u8] = line.as_bytes();
-    let mut tokens: Vec<Token> = vec![];
-    let mut start: usize = 0;
-    let mut current: usize = 0;
+    let bytes: &[u8] = code.as_bytes();
+    let end: usize = offset + len;
 
-    while current < bytes.len() {
+    let mut tokens: Vec<Token> = vec![];
+    let mut start: usize = offset;
+    let mut current: usize = offset;
+
+    while current < len {
         let c: char = bytes[current] as char;
         if c.is_whitespace() {
             current = current + 1;
             start = current;
             continue;
         }
-        if c.eq(&'/') && (peek_next(bytes, current).eq(&'/')) {
+        if c.eq(&'/') && (peek_next(bytes, current, end).eq(&'/')) {
             break;
         }
         match c {
@@ -101,7 +105,7 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
             '/' => tokens.push(Token::Slash),
             ':' => tokens.push(Token::Colon),
             '!' => {
-                if peek_next(bytes, current).eq(&'=') {
+                if peek_next(bytes, current, end).eq(&'=') {
                     tokens.push(Token::BangEqual);
                     current = current + 1
                 } else {
@@ -109,7 +113,7 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
                 }
             }
             '=' => {
-                if peek_next(bytes, current).eq(&'=') {
+                if peek_next(bytes, current, end).eq(&'=') {
                     tokens.push(Token::EqualEqual);
                     current = current + 1;
                 } else {
@@ -117,7 +121,7 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
                 }
             }
             '<' => {
-                if peek_next(bytes, current).eq(&'=') {
+                if peek_next(bytes, current, end).eq(&'=') {
                     tokens.push(Token::LessEqual);
                     current = current + 1;
                 } else {
@@ -125,7 +129,7 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
                 }
             }
             '>' => {
-                if peek_next(bytes, current).eq(&'=') {
+                if peek_next(bytes, current, end).eq(&'=') {
                     tokens.push(Token::GreaterEqual);
                     current = current + 1;
                 } else {
@@ -133,25 +137,25 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
                 }
             }
             '0'..='9' => {
-                while peek_next(bytes, current).is_ascii_digit() {
+                while peek_next(bytes, current, end).is_ascii_digit() {
                     current = current + 1;
                 }
-                tokens.push(Token::Number(line[start..=current].into()));
+                tokens.push(Token::Number(start, current));
             }
             '"' => {
-                while !peek_next(bytes, current).eq(&'"') {
-                    if peek_next(bytes, current).eq(&'\0') {
+                while !peek_next(bytes, current, end).eq(&'"') {
+                    if peek_next(bytes, current, end).eq(&'\0') {
                         return Err("Unmatched String");
                     }
                     current = current + 1;
                 }
-                tokens.push(Token::String(line[start..=current].into()));
+                tokens.push(Token::String(start, current));
             }
             'a'..='z' | 'A'..='Z' => {
-                while peek_next(bytes, current).is_ascii_alphanumeric() {
+                while peek_next(bytes, current, end).is_ascii_alphanumeric() {
                     current = current + 1;
                 }
-                tokens.push(get_keyword(line[start..=current].into()));
+                tokens.push(get_keyword(bytes, start, current));
             }
             _ => return Err("Unexpected Token"),
         }
@@ -161,14 +165,15 @@ fn tokenize_line<'a>(line: &str) -> Result<Vec<Token>, &'static str> {
     return Ok(tokens);
 }
 
-fn peek_next(line: &[u8], current: usize) -> char {
-    if current + 1 >= line.len() {
+fn peek_next(line: &[u8], current: usize, end: usize) -> char {
+    if current + 1 >= end {
         return '\0';
     }
     return line[current + 1] as char;
 }
 
-fn get_keyword(identifier: &str) -> Token {
+fn get_keyword(code: &[u8], start: usize, current: usize) -> Token {
+    let identifier: &str = unsafe { std::str::from_utf8_unchecked(&code[start..=current]) };
     match identifier {
         "and" => Token::And,
         "ELSE" => Token::Else,
@@ -181,6 +186,6 @@ fn get_keyword(identifier: &str) -> Token {
         "PRINT" => Token::Print,
         "RETURN" => Token::Return,
         "true" => Token::True,
-        _ => Token::Identifier(identifier.into()),
+        _ => Token::Identifier(start, current),
     }
 }
