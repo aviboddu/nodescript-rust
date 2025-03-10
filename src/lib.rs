@@ -1,12 +1,5 @@
-use std::{fs::read_to_string, path::Path};
-
 pub mod tokens;
 
-pub fn tokenize_file(path: &Path) -> Result<tokens::Tokens, &'static str> {
-    let contents: Result<String, std::io::Error> = read_to_string(&path);
-    let code: String = match contents {
-        Ok(c) => c,
-        Err(_c) => return Err("IO Error"),
-    };
+pub fn tokenize_string(code: String) -> Result<tokens::Tokens, &'static str> {
     return tokens::tokenize(code);
 }

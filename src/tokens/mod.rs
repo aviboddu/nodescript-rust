@@ -1,10 +1,26 @@
-#[derive(PartialEq, Debug)]
+use std::fmt;
+
+use serde_derive::{Deserialize, Serialize};
+
+#[derive(PartialEq, Debug, Serialize, Deserialize)]
 pub struct Tokens {
     pub tokens: Vec<Vec<Token>>,
     pub code: String,
 }
 
-#[derive(PartialEq, Debug)]
+impl fmt::Display for Tokens {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for line in &self.tokens {
+            for token in line {
+                write!(f, "{} ", token)?;
+            }
+            writeln!(f)?;
+        }
+        Ok(())
+    }
+}
+
+#[derive(PartialEq, Debug, Serialize, Deserialize)]
 pub enum Token {
     LeftParen,
     RightParen,
@@ -45,6 +61,52 @@ pub enum Token {
     Return,
     True,
     Eof,
+}
+
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Token::LeftParen => write!(f, "("),
+            Token::RightParen => write!(f, ")"),
+            Token::LeftSquare => write!(f, "["),
+            Token::RightSquare => write!(f, "]"),
+            Token::Comma => write!(f, ","),
+            Token::Dot => write!(f, "."),
+            Token::Minus => write!(f, "-"),
+            Token::Plus => write!(f, "+"),
+            Token::Slash => write!(f, "/"),
+            Token::Star => write!(f, "*"),
+            Token::Colon => write!(f, ":"),
+            Token::Bang => write!(f, "!"),
+            Token::BangEqual => write!(f, "!="),
+            Token::EqualEqual => write!(f, "=="),
+            Token::Greater => write!(f, ">"),
+            Token::GreaterEqual => write!(f, ">="),
+            Token::Less => write!(f, "<"),
+            Token::LessEqual => write!(f, "<="),
+            Token::Identifier(start, end) => {
+                write!(f, "Identifier({}, {})", start, end)
+            }
+            Token::String(start, end) => {
+                write!(f, "String({}, {})", start, end)
+            }
+            Token::Number(start, end) => {
+                write!(f, "Number({}, {})", start, end)
+            }
+            Token::And => write!(f, "and"),
+            Token::Else => write!(f, "ELSE"),
+            Token::False => write!(f, "false"),
+            Token::If => write!(f, "IF"),
+            Token::Or => write!(f, "or"),
+            Token::EndIf => write!(f, "ENDIF"),
+            Token::Set => write!(f, "SET"),
+            Token::Nop => write!(f, "NOP"),
+            Token::Print => write!(f, "PRINT"),
+            Token::Return => write!(f, "RETURN"),
+            Token::True => write!(f, "true"),
+            Token::Eof => write!(f, "eof"),
+        }
+    }
 }
 
 pub fn tokenize(code: String) -> Result<Tokens, &'static str> {
