@@ -1,0 +1,100 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          4
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          7,
+          12
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          14,
+          18
+        ]
+      },
+      "RightParen"
+    ],
+    [
+      "If",
+      {
+        "Identifier": [
+          24,
+          24
+        ]
+      },
+      "Greater",
+      {
+        "Number": [
+          28,
+          28
+        ]
+      }
+    ],
+    [
+      "Set",
+      {
+        "Identifier": [
+          34,
+          34
+        ]
+      },
+      "Comma",
+      {
+        "String": [
+          37,
+          39
+        ]
+      }
+    ],
+    [
+      "Else"
+    ],
+    [
+      "Set",
+      {
+        "Identifier": [
+          50,
+          50
+        ]
+      },
+      "Comma",
+      {
+        "String": [
+          53,
+          55
+        ]
+      }
+    ],
+    [
+      "EndIf"
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          69,
+          69
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          72,
+          72
+        ]
+      },
+      "Eof"
+    ]
+  ],
+  "code": "SET x, length(input)\nIF x > 1\nSET s, \"g\"\nELSE\nSET s, \"l\"\nENDIF\nPRINT 0, s"
+}

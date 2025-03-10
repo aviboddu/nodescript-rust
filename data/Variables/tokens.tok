@@ -1,0 +1,38 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          4
+        ]
+      },
+      "Comma",
+      {
+        "String": [
+          7,
+          9
+        ]
+      }
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          17,
+          17
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          20,
+          20
+        ]
+      },
+      "Eof"
+    ]
+  ],
+  "code": "SET x, \"a\"\nPRINT 0, x"
+}

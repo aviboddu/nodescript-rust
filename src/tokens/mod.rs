@@ -133,7 +133,7 @@ pub fn tokenize(code: String) -> Result<Tokens, &'static str> {
     return Ok(Tokens { tokens, code });
 }
 
-fn tokenize_line<'a>(code: &str, offset: usize, len: usize) -> Result<Vec<Token>, &'static str> {
+fn tokenize_line(code: &str, offset: usize, len: usize) -> Result<Vec<Token>, &'static str> {
     if len == 0 {
         return Ok(vec![]);
     }
@@ -144,7 +144,7 @@ fn tokenize_line<'a>(code: &str, offset: usize, len: usize) -> Result<Vec<Token>
     let mut start: usize = offset;
     let mut current: usize = offset;
 
-    while current < len {
+    while current < end {
         let c: char = bytes[current] as char;
         if c.is_whitespace() {
             current = current + 1;
@@ -211,10 +211,13 @@ fn tokenize_line<'a>(code: &str, offset: usize, len: usize) -> Result<Vec<Token>
                     }
                     current = current + 1;
                 }
+                current = current + 1;
                 tokens.push(Token::String(start, current));
             }
             'a'..='z' | 'A'..='Z' => {
-                while peek_next(bytes, current, end).is_ascii_alphanumeric() {
+                while peek_next(bytes, current, end).is_ascii_alphanumeric()
+                    || peek_next(bytes, current, end).eq(&'_')
+                {
                     current = current + 1;
                 }
                 tokens.push(get_keyword(bytes, start, current));

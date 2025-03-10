@@ -1,0 +1,92 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          6
+        ]
+      },
+      "Comma",
+      "LeftParen",
+      {
+        "Identifier": [
+          10,
+          15
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          17,
+          21
+        ]
+      },
+      "RightParen",
+      "Minus",
+      {
+        "Number": [
+          26,
+          26
+        ]
+      },
+      "RightParen",
+      "Star",
+      {
+        "Number": [
+          31,
+          31
+        ]
+      }
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          39,
+          39
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          42,
+          45
+        ]
+      },
+      "LeftParen",
+      {
+        "String": [
+          47,
+          63
+        ]
+      },
+      "LeftSquare",
+      {
+        "Identifier": [
+          65,
+          67
+        ]
+      },
+      "Colon",
+      {
+        "Identifier": [
+          71,
+          73
+        ]
+      },
+      "Plus",
+      {
+        "Number": [
+          77,
+          77
+        ]
+      },
+      "RightSquare",
+      "RightParen",
+      "Eof"
+    ]
+  ],
+  "code": "SET idx, (length(input) - 1) * 5\nPRINT 0, trim(\"one  two  three\"[idx : idx + 5])"
+}

@@ -1,0 +1,45 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          6
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          9,
+          11
+        ]
+      },
+      "Plus",
+      {
+        "Identifier": [
+          15,
+          19
+        ]
+      }
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          27,
+          27
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          30,
+          32
+        ]
+      },
+      "Eof"
+    ]
+  ],
+  "code": "SET mem, mem + input\nPRINT 0, mem"
+}

@@ -1,22 +1,25 @@
 {
   "tokens": [
     [
+      "Nop"
+    ],
+    [
       "Print",
       {
         "Number": [
-          6,
-          6
+          10,
+          10
         ]
       },
       "Comma",
       {
         "Identifier": [
-          9,
-          13
+          13,
+          17
         ]
       },
       "Eof"
     ]
   ],
-  "code": "PRINT 0, input"
+  "code": "NOP\nPRINT 0, input"
 }

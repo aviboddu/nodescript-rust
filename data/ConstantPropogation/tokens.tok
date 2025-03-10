@@ -1,0 +1,62 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          4
+        ]
+      },
+      "Comma",
+      "LeftParen",
+      {
+        "Number": [
+          8,
+          8
+        ]
+      },
+      "Plus",
+      {
+        "Number": [
+          10,
+          10
+        ]
+      },
+      "RightParen",
+      "Star",
+      {
+        "Number": [
+          13,
+          13
+        ]
+      }
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          21,
+          21
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          24,
+          32
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          34,
+          34
+        ]
+      },
+      "RightParen",
+      "Eof"
+    ]
+  ],
+  "code": "SET x, (1+2)*3\nPRINT 0, to_string(x)"
+}

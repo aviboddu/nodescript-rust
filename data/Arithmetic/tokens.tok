@@ -1,0 +1,113 @@
+{
+  "tokens": [
+    [
+      "Set",
+      {
+        "Identifier": [
+          4,
+          4
+        ]
+      },
+      "Comma",
+      {
+        "Number": [
+          7,
+          7
+        ]
+      },
+      "Plus",
+      {
+        "Number": [
+          9,
+          9
+        ]
+      }
+    ],
+    [
+      "Set",
+      {
+        "Identifier": [
+          15,
+          15
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          18,
+          18
+        ]
+      },
+      "Star",
+      {
+        "Number": [
+          20,
+          20
+        ]
+      }
+    ],
+    [
+      "Set",
+      {
+        "Identifier": [
+          26,
+          26
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          29,
+          29
+        ]
+      },
+      "Slash",
+      {
+        "Number": [
+          31,
+          31
+        ]
+      },
+      "Plus",
+      {
+        "Number": [
+          35,
+          35
+        ]
+      }
+    ],
+    [
+      "Print",
+      {
+        "Number": [
+          43,
+          43
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          46,
+          54
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          56,
+          56
+        ]
+      },
+      "Plus",
+      {
+        "Number": [
+          60,
+          60
+        ]
+      },
+      "RightParen",
+      "Eof"
+    ]
+  ],
+  "code": "SET x, 1+2\nSET x, x*3\nSET x, x/3 + 1\nPRINT 0, to_string(x + 1)"
+}

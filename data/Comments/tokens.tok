@@ -1,22 +1,26 @@
 {
   "tokens": [
+    [],
+    [],
     [
       "Print",
       {
         "Number": [
-          6,
-          6
+          37,
+          37
         ]
       },
       "Comma",
       {
         "Identifier": [
-          9,
-          13
+          40,
+          44
         ]
-      },
+      }
+    ],
+    [
       "Eof"
     ]
   ],
-  "code": "PRINT 0, input"
+  "code": "// Comment\n//comment test here\nPRINT 0, input\n// Comment"
 }

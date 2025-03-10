@@ -1,0 +1,38 @@
+{
+  "tokens": [
+    [
+      "Print",
+      {
+        "Number": [
+          6,
+          6
+        ]
+      },
+      "Comma",
+      {
+        "Identifier": [
+          9,
+          17
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          19,
+          24
+        ]
+      },
+      "LeftParen",
+      {
+        "Identifier": [
+          26,
+          30
+        ]
+      },
+      "RightParen",
+      "RightParen",
+      "Eof"
+    ]
+  ],
+  "code": "PRINT 0, to_string(length(input))"
+}

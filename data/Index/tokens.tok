@@ -15,8 +15,16 @@
           13
         ]
       },
+      "LeftSquare",
+      {
+        "Number": [
+          15,
+          15
+        ]
+      },
+      "RightSquare",
       "Eof"
     ]
   ],
-  "code": "PRINT 0, input"
+  "code": "PRINT 0, input[0]"
 }
